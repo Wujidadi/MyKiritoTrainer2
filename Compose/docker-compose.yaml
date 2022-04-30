@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  App:
+    image: wujidadi/ap:${MyAP_Version}
+    container_name: ${Container_Name_Prefix}-App
+    hostname: ${Container_Host_Prefix}-app
+    volumes:
+      - ${Compose_Path}/configs/Apache2-000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ${Volumn_App}:/home/${Ubuntu_Username}/${App_Dir_Name}
+      - ${Volumn_Log}/App/syslog:/var/log/syslog
+      - ${Volumn_Log}/App/apache.access.log:/var/log/apache2/access.log
+      - ${Volumn_Log}/App/apache.error.log:/var/log/apache2/error.log
+    networks:
+      extnet:
+        ipv4_address: ${IPv4_App}
+    ports:
+      - ${Port_App}:80
+    command: >
+      bash -c "service rsyslog start;
+      cron start;
+      /usr/sbin/apache2ctl -D FOREGROUND"
+    restart: unless-stopped
+
+networks:
+  extnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${Network_Subnet}

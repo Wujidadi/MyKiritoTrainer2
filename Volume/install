@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+chdir(__DIR__);
+
+# Composer 環境
+shell_exec('composer install');
+
+# 拷貝框架設定檔
+shell_exec('cp configs/examples/* configs/');

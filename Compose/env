@@ -1,0 +1,71 @@
+#!/usr/bin/env php
+<?php
+
+chdir(__DIR__);
+
+require_once './bootstrap/constants.php';
+require_once './bootstrap/functions.php';
+
+/* Port、IP 相關參數 */
+$beginPort      = 40100;
+$beginIPv4Byte3 = 20;
+$ipPrefix       = '10.90.1.';
+
+$var = [
+
+    /* Docker Compose 專案名稱 */
+    'COMPOSE_PROJECT_NAME' => PROJECT_NAME_KEBAB,
+    '',
+
+    /* 容器名稱前綴 */
+    'Container_Name_Prefix' => PROJECT_NAME_UPPER,
+    '',
+
+    /* 容器主機（節點）名稱前綴 */
+    'Container_Host_Prefix' => PROJECT_NAME_KEBAB,
+    '',
+
+    /* Docker Compose 路徑 */
+    'Compose_Path' => PROJECT_BASE . DIRECTORY_SEPARATOR . 'App/Compose',
+    '',
+
+    /* Volume 路徑 */
+    'Volumn_Log' => PROJECT_BASE . DIRECTORY_SEPARATOR . 'Logs',
+    'Volumn_App' => PROJECT_BASE . DIRECTORY_SEPARATOR . 'App/Volume',
+    '',
+
+    /* 映像檔版本 */
+    'MyAP_Version' => '2.4',
+    '',
+
+    /* Ubuntu 系統設定 */
+    'Ubuntu_Username' => 'user',
+    '',
+
+    /* Apache 伺服器設定 */
+    'App_Dir_Name' => 'application',
+    '',
+
+    /* 網域 */
+    'Network_Subnet' => $ipPrefix . '0/24',
+    '',
+
+    /* IP 設定 */
+    'IPv4_App' => $ipPrefix . $beginIPv4Byte3,
+    '',
+
+    /* Port 設定 */
+    'Port_App' => $beginPort
+
+];
+
+// 輸出 .env 檔案
+$line = '';
+foreach ($var as $key => $val)
+{
+    $line .= ($val) ? "{$key}={$val}\n" : "\n";
+}
+$line = preg_replace('/\n{1,}$/', "\n", $line);
+file_put_contents('.env', $line);
+
+echo colorText('輸出 ', CLI_COLOR_SAFE) . colorText(__DIR__ . DIRECTORY_SEPARATOR . '.env', CLI_COLOR_SAFE_EM) . colorText(' 設定檔', CLI_COLOR_SAFE, true);
