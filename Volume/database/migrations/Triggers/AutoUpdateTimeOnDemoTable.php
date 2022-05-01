@@ -2,8 +2,6 @@
 
 namespace Database\Migrations\Triggers;
 
-use PDOException;
-use Libraries\DBAPI;
 use Libraries\Logger;
 use Database\Migration;
 
@@ -34,7 +32,7 @@ class AutoUpdateTimeOnDemoTable extends Migration
     protected $_triggerFunctionName = 'update_timestamp';
 
     /**
-     * Instance of this class.
+     * Unique instance of this class.
      *
      * @var self|null
      */

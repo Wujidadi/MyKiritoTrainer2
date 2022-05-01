@@ -2,8 +2,6 @@
 
 namespace Libraries;
 
-use Exception;
-
 /**
  * Log handling class.
  */
@@ -31,14 +29,14 @@ class Logger
     protected $_logSequence = 0;
 
     /**
-     * Instance of this class.
+     * Unique instance of this class.
      *
      * @var self|null
      */
     protected static $_uniqueInstance = null;
 
     /**
-     * Get the instance of this class.
+     * Get the unique instance of this class.
      *
      * @return self
      */
@@ -193,7 +191,7 @@ class Logger
                 'message' => $result
             ];
         }
-        catch (Exception $error)
+        catch (\Exception $error)
         {
             return [
                 'status' => false,

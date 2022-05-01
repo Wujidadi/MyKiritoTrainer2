@@ -15,14 +15,14 @@ abstract class Controller
     protected $_className;
 
     /**
-     * Instance of this class.
+     * Unique instance of this class.
      *
      * @var self|null
      */
     protected static $_uniqueInstance;
 
     /**
-     * Get the instance of this class.
+     * Get the unique instance of this class.
      *
      * @return self
      */
